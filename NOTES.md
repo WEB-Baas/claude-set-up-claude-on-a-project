@@ -14,6 +14,10 @@ I deliberately left out the endpoint list, the seed users and the Express/ESLint
 
 Without the deny rules, Claude could read `.env` while debugging config. The real secrets would then end up in the conversation and could be repeated in output or a commit. A force-push could overwrite teammates' work on the remote, and `reset --hard` or `rm -rf` could throw away uncommitted work that can't be recovered. `.env.example` stays readable on purpose so Claude can still see which config variables exist.
 
+## `.gitignore` fix
+
+While setting this up I found that the `.env`, `npm-debug.log*` and `.claude/settings.local.json` lines in `.gitignore` started with spaces, so git didn't ignore those files (checked with `git check-ignore`). Real secrets or personal settings could have been committed by accident. I removed the spaces and confirmed all three patterns now match.
+
 ## Verification
 
 - `/memory` shows the project `CLAUDE.md` as loaded.
